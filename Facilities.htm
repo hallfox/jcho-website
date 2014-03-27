@@ -1,4 +1,270 @@
-<html><head><title>AMML-Cho's Group</title><meta name="generator" content="Namo WebEditor"><meta http-equiv="Content-Type" content="text/html; charset=EUC-KR"><style type="text/css"><!--.style2 {font-size: 9px}.style3 {font-size: 12px; }.style4 {font-size: 10px; }.style5 {	font-size: 18px;	font-weight: bold;}.style6 {font-size: 18px}--></style><script language="JavaScript"><!--function namosw_l_update(parent_visible, x, y) {  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;  var top = y, layer, list;  for(var i = 0; i < this.items.length; i++) {     layer = this.items[i];    list  = layer.list;    if (this.visible && parent_visible) {      if (is_ns4) {	layer.visibility = "visible";	layer.top = top;	layer.left = x;      } else if (is_ns6) {	layer.style.visibility = "visible";	layer.style.top   = top;	layer.style.left  = x;	      } else {	layer.style.visibility = "visible";	layer.style.pixelTop   = top;	layer.style.pixelLeft  = x;	//	if (layer.url) layer.style.cursor = "hand";      }      top += this.height;    } else {      if (is_ns4)      layer.visibility = "hidden";      else if (is_ns6) layer.style.visibility = "hidden";      else             layer.style.visibility = "hidden";    }    if (layer.type == 'list') {      if (list.visible) {        if (!list.made)  list.write();        if (!list.shown) list.show();        if (is_ns4) layer.document.images[0].src = "collapsed.gif";	else eval('document.images._img'+list.id+'.src = "collapsed.gif"');      } else {	if (is_ns4) layer.document.images[0].src = "expanded.gif";	else eval('document.images._img'+list.id+'.src = "expanded.gif"');      }      if (list.made)        top = list.update(this.visible && parent_visible, x, top);    }  }  return top;}function namosw_l_updateparent(parent_id) {  this.parent_id = parent_id;  for(var i = 0; i < this.items.length; i++)    if (this.items[i].type == 'list')      this.items[i].list.updateparent(parent_id);}function namosw_l_expand(i) {  document.namosw_lists[i].visible = !document.namosw_lists[i].visible;  list = document.namosw_lists[document.namosw_lists[i].parent_id];  list.update(true, list.x, list.y);}function namosw_l_make(x, y) {  this.updateparent(this.id);  this.write();  this.show();  this.update(true, x, y);  this.x = x;   this.y = y;}function namosw_l_additem(text, url, frame) {  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;  var layer = null;  if (is_ns4 && this.parent)    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);  else if (is_ns6)    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);  else    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);  if (layer == null && is_ns4)     layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);  if (layer == null) return;  if (url)   layer.url   = url;  if (frame) {    if (frame.indexOf('parent.') != 0)      layer.frame = "_" + frame;    else      layer.frame = frame.substring(7, frame.length);  }  layer.type = 'item';  layer.text = text;  layer.lid  = document.namosw_lists.lid;  this.items[this.items.length] = layer;  layer.hbgColor = this.hbgColor;  layer.oBgColor = this.bgColor;  layer.fgColor = this.fgColor;  layer.hfgColor = this.hfgColor;  if (layer.captureEvents)    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);  layer.onmouseover = namosw_l_onmouseover;  layer.onmouseout  = namosw_l_onmouseout;//  layer.onmouseup   = namosw_l_onmouseup;  document.namosw_lists.lid++;}function namosw_l_addlist(list, text, url, frame) {  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;  var layer = null;  if (is_ns4 && this.parent)    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);  else if (is_ns6)    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);  else    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);  if (layer == null && is_ns4)       layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);  if (layer == null) return;  if (url)   layer.url   = url;  if (frame) {    if (frame.indexOf('parent.') != 0)      layer.frame = "_" + frame;    else      layer.frame = frame.substring(7, frame.length);  }  layer.list = list;  layer.type = 'list';  layer.text = text;  layer.lid  = document.namosw_lists.lid;  this.items[this.items.length] = layer;  list.parent = this;  layer.hbgColor = this.hbgColor;  layer.oBgColor = this.bgColor;  layer.fgColor = this.fgColor;  layer.hfgColor = this.hfgColor;  if (layer.captureEvents)    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);  layer.onmouseover = namosw_l_onmouseover;  layer.onmouseout  = namosw_l_onmouseout;//  layer.onmouseup   = namosw_l_onmouseup;  document.namosw_lists.lid++;}function namosw_l_onmouseover(){  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;  if (is_ns4) {    if (this.hbgColor)      this.bgColor = this.hbgColor;  } else {    if (this.hbgColor) this.style.backgroundColor = this.hbgColor;    if (this.hfgColor) this.span.style.color = this.hfgColor;  }  if (this.url) self.status = this.url;}function namosw_l_onmouseout(){  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;  if (is_ns4) {    this.bgColor = this.oBgColor;  } else  {    this.style.backgroundColor = this.oBgColor;    this.span.style.color = this.fgColor;  }  if (this.url) self.status = '';}function namosw_l_onmouseup(){  if (this.url) {    if (this.frame == 'blank') {      window.open(this.url, 'win1');    } else {      var frame_obj;      if ((frame_obj = eval(this.frame)) != null)        frame_obj.location = this.url;    }  }}function namosw_init_list(top_layer){  if (parseInt(navigator.appVersion) < 4)    return;  if (top_layer == '')    return;  document.namosw_lists     = new Array();  document.namosw_lists.lid = 0;  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;  var layer;  if (is_ns4)      layer = document.layers[top_layer];    else if (is_ns6) layer = document.getElementById(top_layer);  else             layer = document.all[top_layer];  var string = "";  for (i = 0; i < 7; i++) {    string = string + "<div id='namoswlistitem" + (document.namosw_lists.lid+i) + "' " +                      "style='position: absolute;'></div>";  }  layer.innerHTML += string;  l1 = new namosw_list(layer, true, 145, 22, '(기본 글꼴)', '', 'white', '', 65);    l2 = new namosw_list(layer, false, 145, 53, 'Verdana', '1', 'white', '#009933', 5, '#006600');    l2.additem('Dept. of Mechanical Engineering', 'http://www.me.binghamton.edu', 'top');    l2.additem('Program of Materials Science and Engineering', 'http://materials.binghamton.edu/materials/', 'top');    l2.additem('Integrated Electronics Engineering Center (IEEC)', 'http://www.ieec.binghamton.edu/ieec/', 'top');    l2.additem('Research at Binghamton University', 'http://research.binghamton.edu/', 'top');    l2.additem('BU Libraries', 'http://library.lib.binghamton.edu/', 'top');  l1.addlist(l2, ' ', '', 'self');  l1.make(0, 14);}function namosw_ns_resize(){  window.history.go(0);}// --></script><script language="JavaScript">
+<html>
+
+<head>
+<title>AMML-Cho's Group</title>
+<meta name="generator" content="Namo WebEditor">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<style type="text/css">
+<!--
+
+.style2 {font-size: 9px}
+.style3 {font-size: 12px; }
+.style4 {font-size: 10px; }
+.style5 {
+	font-size: 18px;
+	font-weight: bold;
+}
+.style6 {font-size: 18px}
+-->
+</style>
+<script language="JavaScript">
+<!--
+
+
+
+
+
+
+
+
+function namosw_l_update(parent_visible, x, y) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var top = y, layer, list;
+  for(var i = 0; i < this.items.length; i++) { 
+    layer = this.items[i];
+    list  = layer.list;
+    if (this.visible && parent_visible) {
+      if (is_ns4) {
+	layer.visibility = "visible";
+	layer.top = top;
+	layer.left = x;
+      } else if (is_ns6) {
+	layer.style.visibility = "visible";
+	layer.style.top   = top;
+	layer.style.left  = x;	
+      } else {
+	layer.style.visibility = "visible";
+	layer.style.pixelTop   = top;
+	layer.style.pixelLeft  = x;	
+//	if (layer.url) layer.style.cursor = "hand";
+      }
+      top += this.height;
+    } else {
+      if (is_ns4)      layer.visibility = "hidden";
+      else if (is_ns6) layer.style.visibility = "hidden";
+      else             layer.style.visibility = "hidden";
+    }
+    if (layer.type == 'list') {
+      if (list.visible) {
+        if (!list.made)  list.write();
+        if (!list.shown) list.show();
+        if (is_ns4) layer.document.images[0].src = "collapsed.gif";
+	else eval('document.images._img'+list.id+'.src = "collapsed.gif"');
+      } else {
+	if (is_ns4) layer.document.images[0].src = "expanded.gif";
+	else eval('document.images._img'+list.id+'.src = "expanded.gif"');
+      }
+      if (list.made)
+        top = list.update(this.visible && parent_visible, x, top);
+    }
+  }
+  return top;
+}
+
+function namosw_l_updateparent(parent_id) {
+  this.parent_id = parent_id;
+  for(var i = 0; i < this.items.length; i++)
+    if (this.items[i].type == 'list')
+      this.items[i].list.updateparent(parent_id);
+}
+
+function namosw_l_expand(i) {
+  document.namosw_lists[i].visible = !document.namosw_lists[i].visible;
+  list = document.namosw_lists[document.namosw_lists[i].parent_id];
+  list.update(true, list.x, list.y);
+}
+
+function namosw_l_make(x, y) {
+  this.updateparent(this.id);
+  this.write();
+  this.show();
+  this.update(true, x, y);
+  this.x = x; 
+  this.y = y;
+}
+
+function namosw_l_additem(text, url, frame) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer = null;
+  if (is_ns4 && this.parent)
+    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);
+  else if (is_ns6)
+    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);
+  else
+    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);
+
+  if (layer == null && is_ns4) 
+    layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);
+
+  if (layer == null) return;
+
+  if (url)   layer.url   = url;
+  if (frame) {
+    if (frame.indexOf('parent.') != 0)
+      layer.frame = "_" + frame;
+    else
+      layer.frame = frame.substring(7, frame.length);
+  }
+  layer.type = 'item';
+  layer.text = text;
+  layer.lid  = document.namosw_lists.lid;
+  this.items[this.items.length] = layer;
+  layer.hbgColor = this.hbgColor;
+  layer.oBgColor = this.bgColor;
+  layer.fgColor = this.fgColor;
+  layer.hfgColor = this.hfgColor;
+  if (layer.captureEvents)
+    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);
+  layer.onmouseover = namosw_l_onmouseover;
+  layer.onmouseout  = namosw_l_onmouseout;
+//  layer.onmouseup   = namosw_l_onmouseup;
+  document.namosw_lists.lid++;
+}
+
+function namosw_l_addlist(list, text, url, frame) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer = null;
+
+  if (is_ns4 && this.parent)
+    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);
+  else if (is_ns6)
+    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);
+  else
+    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);
+  if (layer == null && is_ns4) 
+      layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);
+
+  if (layer == null) return;
+
+  if (url)   layer.url   = url;
+  if (frame) {
+    if (frame.indexOf('parent.') != 0)
+      layer.frame = "_" + frame;
+    else
+      layer.frame = frame.substring(7, frame.length);
+  }
+  layer.list = list;
+  layer.type = 'list';
+  layer.text = text;
+  layer.lid  = document.namosw_lists.lid;
+  this.items[this.items.length] = layer;
+  list.parent = this;
+  layer.hbgColor = this.hbgColor;
+  layer.oBgColor = this.bgColor;
+  layer.fgColor = this.fgColor;
+  layer.hfgColor = this.hfgColor;
+  if (layer.captureEvents)
+    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);
+  layer.onmouseover = namosw_l_onmouseover;
+  layer.onmouseout  = namosw_l_onmouseout;
+//  layer.onmouseup   = namosw_l_onmouseup;
+  document.namosw_lists.lid++;
+}
+
+function namosw_l_onmouseover()
+{
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  if (is_ns4) {
+    if (this.hbgColor)
+      this.bgColor = this.hbgColor;
+  } else {
+    if (this.hbgColor) this.style.backgroundColor = this.hbgColor;
+    if (this.hfgColor) this.span.style.color = this.hfgColor;
+  }
+  if (this.url) self.status = this.url;
+}
+
+function namosw_l_onmouseout()
+{
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  if (is_ns4) {
+    this.bgColor = this.oBgColor;
+  } else  {
+    this.style.backgroundColor = this.oBgColor;
+    this.span.style.color = this.fgColor;
+  }
+  if (this.url) self.status = '';
+}
+
+function namosw_l_onmouseup()
+{
+  if (this.url) {
+    if (this.frame == 'blank') {
+      window.open(this.url, 'win1');
+    } else {
+      var frame_obj;
+      if ((frame_obj = eval(this.frame)) != null)
+        frame_obj.location = this.url;
+    }
+  }
+}
+
+function namosw_init_list(top_layer)
+{
+  if (parseInt(navigator.appVersion) < 4)
+    return;
+  if (top_layer == '')
+    return;
+
+  document.namosw_lists     = new Array();
+  document.namosw_lists.lid = 0;
+
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer;
+  if (is_ns4)      layer = document.layers[top_layer];  
+  else if (is_ns6) layer = document.getElementById(top_layer);
+  else             layer = document.all[top_layer];
+
+
+  var string = "";
+  for (i = 0; i < 7; i++) {
+    string = string + "<div id='namoswlistitem" + (document.namosw_lists.lid+i) + "' " +
+                      "style='position: absolute;'></div>";
+  }
+  layer.innerHTML += string;
+
+  l1 = new namosw_list(layer, true, 145, 22, '(기본 글꼴)', '', 'white', '', 65);
+    l2 = new namosw_list(layer, false, 145, 53, 'Verdana', '1', 'white', '#009933', 5, '#006600');
+    l2.additem('Dept. of Mechanical Engineering', 'http://www.me.binghamton.edu', 'top');
+    l2.additem('Program of Materials Science and Engineering', 'http://materials.binghamton.edu/materials/', 'top');
+    l2.additem('Integrated Electronics Engineering Center (IEEC)', 'http://www.ieec.binghamton.edu/ieec/', 'top');
+    l2.additem('Research at Binghamton University', 'http://research.binghamton.edu/', 'top');
+    l2.additem('BU Libraries', 'http://library.lib.binghamton.edu/', 'top');
+  l1.addlist(l2, ' ', '', 'self');
+
+  l1.make(0, 14);
+}
+
+function namosw_ns_resize()
+{
+  window.history.go(0);
+}
+
+// -->
+</script>
+<script language="JavaScript">
 <!--
 function namosw_list(parent, visible, width, height, font, size, fgColor, bgColor, indent, hbgColor, hfgColor) {
   this.additem = namosw_l_additem;
@@ -411,8 +677,47 @@ function na_change_img_src(name, nsdoc, rpath, preload)
 // -->
 </script>
 
-</head><body bgcolor="white" text="black" link="blue" vlink="purple" alink="red" OnLoad=" namosw_init_list('layer1');na_preload_img(false, 'Files/Pics/Buttons/News_2.jpg', 'Files/Pics/Buttons/Photo%20album%202.jpg', 'Files/Pics/Buttons/form%202.jpg', 'Files/Pics/Buttons/position%202.jpg', 'Files/Pics/Banner/Disclaimer%202.jpg');" OnResize="namosw_ns_resize();"><div align="left">    <table width="798" cellpadding="0" cellspacing="0" height="95">        <tr>            <td width="798" height="95">                <p align="left"><font face="Verdana"><img src="Files/Pics/Banner/index_011.jpg" width="800" height="92" border="0"></font></p>            </td>        </tr>    </table></div><div align="left">    <table width="790" cellpadding="0" cellspacing="0" height="118" style="border-collapse:collapse;">        <tr>            <td width="156" height="90" style="border-width:2; border-color:white; border-style:solid;"><p align="center"><font face="Verdana"><a href="People.htm"><img src="Files/Pics/People/IMG_4636.jpg" width="150" height="96" border="0"></a></font></p>            </td>            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;"><p align="center"><a href="../내 웹 사이트/Research.htm"></a><font face="Verdana"><a href="Research.htm"><img src="Files/Pics/Research/3 micron copy.jpg" width="150" height="96" border="0"></a></font></p>            </td>            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;"><p align="center"><font face="Verdana"><a href="Facilities.htm"><img src="Files/Pics/Research/Picture5 (WinCE).jpg" width="150" height="96" border="0"></a></font></p>            </td>            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;"><p align="center"><a href="Research.htm"><img src="Files/Pics/Research/indent.jpg" width="149" height="101" border="0"></a></p>            </td>            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;"><p align="center"><a href="Photo album.htm"><img src="Files/Pics/Photo album/1.jpg" width="145" height="100" border="0"></a></p>            </td>        </tr>        <tr>            <td width="796" height="12" colspan="5" style="border-width:2; border-color:white; border-style:solid;">                <p align="center"><font face="Verdana"><img src="Files/Pics/Banner/Banner6.jpg" width="800" height="30" border="0" usemap="#ImageMap1"></font></p>            </td>        </tr>    </table></div><div align="left">    <table width="800" cellpadding="0" cellspacing="0" height="922" style="border-collapse:collapse;">        <tr>
-            <td width="146" height="922" bordercolor="white" style="border-width:2; border-color:white; border-style:solid;" background="Files/Pics/Banner/Banner18.jpg" rowspan="3"><p style="line-height:100%; margin:0;" align="left"><font size="3" face="Verdana"><b><a href="News.htm" OnMouseOut="na_restore_img_src('News', 'document')" OnMouseOver="na_change_img_src('News', 'document', 'Files/Pics/Buttons/News_2.jpg', true);"><img border="0" src="Files/Pics/Buttons/News_1.jpg" width="145" height="50" name="News"></a></b></font></p>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red" OnLoad=" namosw_init_list('layer1');na_preload_img(false, 'Files/Pics/Buttons/News_2.jpg', 'Files/Pics/Buttons/Photo%20album%202.jpg', 'Files/Pics/Buttons/form%202.jpg', 'Files/Pics/Buttons/position%202.jpg', 'Files/Pics/Banner/Disclaimer%202.jpg');" OnResize="namosw_ns_resize();">
+<div align="left">
+    <table width="798" cellpadding="0" cellspacing="0" height="95">
+        <tr>
+            <td width="798" height="95">
+                <p align="left"><font face="Verdana"><img src="Files/Pics/Banner/index_011.jpg" width="800" height="92" border="0"></font></p>            </td>
+        </tr>
+    </table>
+</div>
+<div align="left">
+    <table width="790" cellpadding="0" cellspacing="0" height="118" style="border-collapse:collapse;">
+        <tr>
+            <td width="156" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><font face="Verdana"><a href="People.htm"><img src="Files/Pics/People/IMG_4636.jpg" width="150" height="96" border="0"></a></font></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><a href="../내 웹 사이트/Research.htm"></a><font face="Verdana"><a href="Research.htm"><img src="Files/Pics/Research/3 micron copy.jpg" width="150" height="96" border="0"></a></font></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><font face="Verdana"><a href="Facilities.htm"><img src="Files/Pics/Research/Picture5 (WinCE).jpg" width="150" height="96" border="0"></a></font></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><a href="Research.htm"><img src="Files/Pics/Research/indent.jpg" width="149" height="101" border="0"></a></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><a href="Photo album.htm"><img src="Files/Pics/Photo album/1.jpg" width="145" height="100" border="0"></a></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="796" height="12" colspan="5" style="border-width:2; border-color:white; border-style:solid;">
+                <p align="center"><font face="Verdana"><img src="Files/Pics/Banner/Banner6.jpg" width="800" height="30" border="0" usemap="#ImageMap1"></font></p>            </td>
+        </tr>
+    </table>
+</div>
+<div align="left">
+    <table width="800" cellpadding="0" cellspacing="0" height="922" style="border-collapse:collapse;">
+        <tr>
+            <td width="146" height="922" bordercolor="white" style="border-width:2; border-color:white; border-style:solid;" background="Files/Pics/Banner/Banner18.jpg" rowspan="3">
+<p style="line-height:100%; margin:0;" align="left"><font size="3" face="Verdana"><b><a href="News.htm" OnMouseOut="na_restore_img_src('News', 'document')" OnMouseOver="na_change_img_src('News', 'document', 'Files/Pics/Buttons/News_2.jpg', true);"><img border="0" src="Files/Pics/Buttons/News_1.jpg" width="145" height="50" name="News"></a></b></font></p>
                 <p style="line-height:100%; margin:0;"><a href="Photo album.htm" OnMouseOut="na_restore_img_src('photo', 'document')" OnMouseOver="na_change_img_src('photo', 'document', 'Files/Pics/Buttons/Photo%20album%202.jpg', true);"><img border="0" src="Files/Pics/Buttons/Photo%20album%201.jpg" width="145" height="50" name="photo"></a><font size="3" face="Verdana"></font><b></b></p>
                 <p style="line-height:100%; margin:0;"><a href="Forms.htm" OnMouseOut="na_restore_img_src('form', 'document')" OnMouseOver="na_change_img_src('form', 'document', 'Files/Pics/Buttons/form%202.jpg', true);"><img border="0" src="Files/Pics/Buttons/form%201.jpg" width="145" height="50" name="form"></a></p>
                 <p style="line-height:100%; margin:0;"><a href="Position.htm" OnMouseOut="na_restore_img_src('Position', 'document')" OnMouseOver="na_change_img_src('Position', 'document', 'Files/Pics/Buttons/position%202.jpg', true);"><img border="0" src="Files/Pics/Buttons/position%201.jpg" width="145" height="50" name="Position"></a><font size="3" face="Verdana"></font></p>
@@ -453,8 +758,159 @@ function na_change_img_src(name, nsdoc, rpath, preload)
                 <p align="center" style="line-height:100%; margin:0;"><a href="http://www.binghamton.edu"><img src="Files/Pics/Sponsors/BUlogo2c copy.jpg" width="120" height="52" border="0"></a></p>
                 <p align="center">&nbsp;</p>
             </td>
-            <td width="358" height="205" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#F9F6E4">                <p align="center" class="style5"><font face="Verdana">Scientific                        Instruments</font></p>                <p align="center" class="style6"><font face="Verdana"><b>in</b></font></p>                <p align="center"><span class="style6"><font face="Verdana"><b>AMML</b></font><font face="Verdana"><b></b></font></span></p>          </td>                                                    <td width="288" height="205" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#E4DEBF">                <p align="center"><img src="Files/Pics/People/Research2_2.jpg" width="221" height="121" border="0"></p>            </td>        <tr>            <td width="648" height="564" colspan="2" style="border-width:2; border-color:white; border-style:solid;">                <table width="646" height="504" cellspacing="0" style="border-collapse:collapse;" align="center">                    <tr>                        <td width="125" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/nanoidnentation.htm"><img src="Files/Pics/Tools/Nanoindenter.jpg" width="125" height="80" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">                            <p align="center"><a href="Files/Pics/Tools/Pages/Instron tensile tester.htm"><img src="Files/Pics/Tools/5540_detailed.jpg" width="125" height="114" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/MTS tensile tester.htm"><img src="Files/Pics/Tools/DSC00060 copy.jpg" width="125" height="113" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">                            <p align="center"><a href="Files/Pics/Tools/Pages/MTS tensile tester.htm"><img src="Files/Pics/Tools/DSC01217.jpg" width="125" height="86" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/Glove box.htm"><img src="Files/Pics/Tools/workstation-unilab.jpg" width="114" height="112" border="0"></a></p>                        </td>                    </tr>                    <tr>                        <td width="125" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">                            <p align="center"><a href="Files/Pics/Tools/Pages/Automatic polisher.htm"><img src="Files/Pics/Tools/AutoCover.jpg" width="84" height="114" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/Contact angle measurement.htm"><img src="Files/Pics/Tools/cam100.jpg" width="120" height="118" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">                            <p align="center"><a href="Files/Pics/Tools/Pages/Spin coater.htm"><img src="Files/Pics/Tools/chemat102.jpg" width="120" height="122" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/Optical microscope.htm"><img src="Files/Pics/Tools/DSC01242 (Custom).jpg" width="120" height="82" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">                            <p align="center"><a href="Files/Pics/Tools/Pages/Atomic Force Microscope.htm"><img src="Files/Pics/Tools/DSC01243 (Custom).jpg" width="93" height="121" border="0"></a></p>                        </td>                    </tr>                    <tr>                        <td width="125" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/Furnaces and ovens.htm"><img src="Files/Pics/Tools/DSC01244 copy.jpg" width="121" height="84" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">                            <p align="center"><a href="Files/Pics/Tools/Pages/Furnaces and ovens.htm"><img src="Files/Pics/Tools/DSC01249 copy.jpg" width="121" height="84" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/Furnaces and ovens.htm"><img src="Files/Pics/Tools/DSC01248 copy.jpg" width="82" height="111" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">                            <p align="center"><a href="Files/Pics/Tools/Pages/Diamond blade cutter.htm"><img src="Files/Pics/Tools/techcut4_1 copy.jpg" width="121" height="108" border="0"></a></p>                        </td>                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">                            <p align="center"><a href="Files/Pics/Tools/Pages/Sputter system.htm"><img src="Files/Pics/Tools/DSC01246 copy.jpg" width="85" height="111" border="0"></a></p>                        </td>                    </tr>                    <tr>                        <td width="125" height="81" style="border-width:1; border-color:black; border-style:none;" rowspan="2" bgcolor="#F9F6E4">                            <p align="center">&nbsp;</p>                        </td>                        <td width="126" height="81" style="border-width:1; border-color:black; border-style:none;" rowspan="2" bgcolor="#F9F6E4">                            <p align="center">&nbsp;</p>                        </td>                        <td width="385" height="59" style="border-width:1; border-color:black; border-style:none;" colspan="3" bgcolor="#F9F6E4">                            <p align="left"><font size="3" face="Verdana"><b>Other                            accessible instruments (on-campus, off-campus):</b></font></p>                        </td>                    </tr>                    <tr>                        <td width="385" height="22" colspan="3" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F9F6E4">                            <p><font size="3" face="Verdana">TEM, SEM, AFM,                                FIB, XRD, FT-IR, Ellipsometer, Parylene Coater,                                Dynamic Light Scattering </font></p>                        </td>                    </tr>                </table>            </td><tr>            <td width="358" height="141" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#E4DEBF">                <p align="center"><font size="3" face="Verdana" color="black"><img src="Files/Pics/People/Research_2.jpg" width="217" height="122" border="0"></font></p>            </td>            <td width="288" height="141" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#F2EDD6">                <p align="center"><font size="4" face="Verdana" color="red">For                    availability</font></p>                <p align="center"><font size="3" face="Verdana" color="black">E-mail to&nbsp;<a href="mailto:jcho@binghamton.edu">Prof. Cho</a></font></p>            </td></table></div><div align="left" class="style4">    <table width="800" cellpadding="0" cellspacing="0" height="152">        <tr>            <td height="31" colspan="10" background="Files/Pics/Banner/Banner4.jpg" width="800">                <p align="left"><b><font face="Verdana">&nbsp;&nbsp;</font><font face="Verdana" color="#3E9E3D">Sponsors</font></b><font face="Verdana"></font></p>          </td>        </tr>        <tr>
-            <td width="80" height="35">                <p align="center"><font face="Verdana"><a href="http://www.ieec.binghamton.edu/ieec/"><img src="Files/Pics/Sponsors/IEEClogo.jpg" width="80" height="25" border="0"></a></font><font face="Verdana"></font></p>            </td>            <td width="80" height="35">                <p align="center"><font face="Verdana"><a href="http://www.ceis.rochester.edu/"><img src="Files/Pics/Sponsors/ceis-cateis.jpg" width="80" height="70" border="0"></a></font><font face="Verdana"></font></p>          </td>            <td width="80" height="35">                <p align="center"><font face="Verdana"><a href="http://www.infotonics.org/"><img src="Files/Pics/Sponsors/infotonics.jpg" width="80" height="25" border="0"></a></font><font face="Verdana"></font></p>          </td>            <td width="80" height="35">                <p align="center"><a href="http://www.src.org"><img src="Files/Pics/Sponsors/SRC.jpg" width="65" height="65" border="0"></a><font face="Verdana"></font></p>          </td>            <td width="80" height="35">                <p align="center"><a href="http://www.analog.com/"><img src="Files/Pics/Sponsors/logo.jpg" width="80" height="25" border="0"></a><font face="Verdana"></font></p>          </td><td width="80" height="35"><p align="center"><a href="http://www.ge.com/research"><img src="Files/Pics/Sponsors/monogram.gif" width="59" height="57" border="0"></a><font face="Verdana"></font></p>
+            <td width="358" height="205" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#F9F6E4">
+                <a href="Files/Facilities.docx"><p align="center" class="style5"><font face="Verdana">Scientific
+                        Instruments</font></p>
+                <p align="center" class="style6"><font face="Verdana"><b>in</b></font></p>
+                <p align="center"><span class="style6"><font face="Verdana"><b>AMML</b></font><font face="Verdana"><b></b></font></span></p></a>
+          </td>
+                        
+                            <td width="288" height="205" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#E4DEBF">
+                <p align="center"><img src="Files/Pics/People/Research2_2.jpg" width="221" height="121" border="0"></p>
             </td>
-            <td width="80" height="35">                <p align="center"><a href="http://www.nystar.state.ny.us/"><img src="Files/Pics/Sponsors/nystarnews.jpg" width="80" height="22" border="0"></a><font face="Verdana"></font></p>          </td>            <td width="80" height="35">                <p align="center"><a href="http://www.nsf.gov/"><img src="Files/Pics/Sponsors/nsf4c.jpg" width="80" height="80" border="0"></a><font face="Verdana"></font></p>          </td><td width="80" height="35"><p align="center"><a href="http://www.onr.navy.mil/"><img src="Files/Pics/Sponsors/ONR.jpg" width="80" height="36" border="0"></a><font face="Verdana"></font></p>            </td>            <td width="80" height="35">                <p align="center"><a href="http://www.energy.gov/"><img src="Files/Pics/Sponsors/DOE.jpg" width="70" height="70" border="0"></a><font face="Verdana"></font></p>          </td></tr>
-        <tr>            <td height="31" colspan="10" width="800"><a href="#" OnMouseOut="na_restore_img_src('Disclaimer', 'document')" OnMouseOver="na_change_img_src('Disclaimer', 'document', 'Files/Pics/Banner/Disclaimer%202.jpg', true);"><img border="0" src="Files/Pics/Banner/Disclaimer%201.jpg" width="800" height="30" name="Disclaimer"></a></td>        </tr>        <tr>            <td height="55" colspan="10" width="800">                <p align="center"><font size="2" face="Verdana">Copyright                      (c) 2006&nbsp;AMML. All rights reserved.</font></p>          </td>        </tr>  </table></div><span class="style4"><font face="Verdana"><map name="ImageMap1">  <area shape="rect" coords="103, 6, 150, 22" href="index.html">  <area shape="rect" coords="185, 4, 239, 24" href="People.htm">  <area shape="rect" coords="273, 4, 351, 25" href="Research.htm">  <area shape="rect" coords="397, 5, 497, 26" href="Publications.htm">  <area shape="rect" coords="532, 5, 612, 24" href="Facilities.htm">  <area shape="rect" coords="642, 6, 703, 24" href="Alumni.htm"></map></font></span><span class="style4"></span><span class="style3"></span><span class="style3"></span><span class="style3"></span><span class="style2"></span><span class="style2"></span></body></html>
+        <tr>
+            <td width="648" height="564" colspan="2" style="border-width:2; border-color:white; border-style:solid;">
+                <table width="646" height="504" cellspacing="0" style="border-collapse:collapse;" align="center">
+                    <tr>
+                        <td width="125" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/nanoidnentation.htm"><img src="Files/Pics/Tools/Nanoindenter.jpg" width="125" height="80" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Instron tensile tester.htm"><img src="Files/Pics/Tools/5540_detailed.jpg" width="125" height="114" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/MTS tensile tester.htm"><img src="Files/Pics/Tools/DSC00060 copy.jpg" width="125" height="113" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/MTS tensile tester.htm"><img src="Files/Pics/Tools/DSC01217.jpg" width="125" height="86" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Glove box.htm"><img src="Files/Pics/Tools/workstation-unilab.jpg" width="114" height="112" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="125" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Automatic polisher.htm"><img src="Files/Pics/Tools/AutoCover.jpg" width="84" height="114" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Contact angle measurement.htm"><img src="Files/Pics/Tools/cam100.jpg" width="120" height="118" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Spin coater.htm"><img src="Files/Pics/Tools/chemat102.jpg" width="120" height="122" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Optical microscope.htm"><img src="Files/Pics/Tools/DSC01242 (Custom).jpg" width="120" height="82" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Atomic Force Microscope.htm"><img src="Files/Pics/Tools/DSC01243 (Custom).jpg" width="93" height="121" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="125" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Furnaces and ovens.htm"><img src="Files/Pics/Tools/DSC01244 copy.jpg" width="121" height="84" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Furnaces and ovens.htm"><img src="Files/Pics/Tools/DSC01249 copy.jpg" width="121" height="84" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Furnaces and ovens.htm"><img src="Files/Pics/Tools/DSC01248 copy.jpg" width="82" height="111" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#E4DEBF">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Diamond blade cutter.htm"><img src="Files/Pics/Tools/techcut4_1 copy.jpg" width="121" height="108" border="0"></a></p>
+                        </td>
+                        <td width="126" height="141" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F2EDD6">
+                            <p align="center"><a href="Files/Pics/Tools/Pages/Sputter system.htm"><img src="Files/Pics/Tools/DSC01246 copy.jpg" width="85" height="111" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="125" height="81" style="border-width:1; border-color:black; border-style:none;" rowspan="2" bgcolor="#F9F6E4">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td width="126" height="81" style="border-width:1; border-color:black; border-style:none;" rowspan="2" bgcolor="#F9F6E4">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td width="385" height="59" style="border-width:1; border-color:black; border-style:none;" colspan="3" bgcolor="#F9F6E4">
+                            <p align="left"><font size="3" face="Verdana"><b>Other
+                            accessible instruments (on-campus, off-campus):</b></font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="385" height="22" colspan="3" style="border-width:1; border-color:black; border-style:none;" bgcolor="#F9F6E4">
+                            <p><font size="3" face="Verdana">TEM, SEM, AFM,
+                                FIB, XRD, FT-IR, Ellipsometer, Parylene Coater,
+                                Dynamic Light Scattering </font></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+<tr>
+            <td width="358" height="141" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#E4DEBF">
+                <p align="center"><font size="3" face="Verdana" color="black"><img src="Files/Pics/People/Research_2.jpg" width="217" height="122" border="0"></font></p>
+            </td>
+            <td width="288" height="141" style="border-width:2; border-color:white; border-style:solid;" bgcolor="#F2EDD6">
+                <p align="center"><font size="4" face="Verdana" color="red">For
+                    availability</font></p>
+                <p align="center"><font size="3" face="Verdana" color="black">E-mail to&nbsp;<a href="mailto:jcho@binghamton.edu">Prof. Cho</a></font></p>
+            </td>
+</table>
+</div>
+<div align="left" class="style4">
+    <table width="800" cellpadding="0" cellspacing="0" height="152">
+        <tr>
+            <td height="31" colspan="10" background="Files/Pics/Banner/Banner4.jpg" width="800">
+                <p align="left"><b><font face="Verdana">&nbsp;&nbsp;</font><font face="Verdana" color="#3E9E3D">Sponsors</font></b><font face="Verdana"></font></p>          </td>
+        </tr>
+        <tr>
+            <td width="80" height="35">
+                <p align="center"><font face="Verdana"><a href="http://www.ieec.binghamton.edu/ieec/"><img src="Files/Pics/Sponsors/IEEClogo.jpg" width="80" height="25" border="0"></a></font><font face="Verdana"></font></p>            </td>
+            <td width="80" height="35">
+                <p align="center"><font face="Verdana"><a href="http://www.ceis.rochester.edu/"><img src="Files/Pics/Sponsors/ceis-cateis.jpg" width="80" height="70" border="0"></a></font><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><font face="Verdana"><a href="http://www.infotonics.org/"><img src="Files/Pics/Sponsors/infotonics.jpg" width="80" height="25" border="0"></a></font><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.src.org"><img src="Files/Pics/Sponsors/SRC.jpg" width="65" height="65" border="0"></a><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.analog.com/"><img src="Files/Pics/Sponsors/logo.jpg" width="80" height="25" border="0"></a><font face="Verdana"></font></p>          </td>
+<td width="80" height="35">
+<p align="center"><a href="http://www.ge.com/research"><img src="Files/Pics/Sponsors/monogram.gif" width="59" height="57" border="0"></a><font face="Verdana"></font></p>
+            </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.nystar.state.ny.us/"><img src="Files/Pics/Sponsors/nystarnews.jpg" width="80" height="22" border="0"></a><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.nsf.gov/"><img src="Files/Pics/Sponsors/nsf4c.jpg" width="80" height="80" border="0"></a><font face="Verdana"></font></p>          </td>
+<td width="80" height="35">
+<p align="center"><a href="http://www.onr.navy.mil/"><img src="Files/Pics/Sponsors/ONR.jpg" width="80" height="36" border="0"></a><font face="Verdana"></font></p>
+            </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.energy.gov/"><img src="Files/Pics/Sponsors/DOE.jpg" width="70" height="70" border="0"></a><font face="Verdana"></font></p>          </td>
+</tr>
+        <tr>
+            <td height="31" colspan="10" width="800">
+<a href="#" OnMouseOut="na_restore_img_src('Disclaimer', 'document')" OnMouseOver="na_change_img_src('Disclaimer', 'document', 'Files/Pics/Banner/Disclaimer%202.jpg', true);"><img border="0" src="Files/Pics/Banner/Disclaimer%201.jpg" width="800" height="30" name="Disclaimer"></a></td>
+        </tr>
+        <tr>
+            <td height="55" colspan="10" width="800">
+                <p align="center"><font size="2" face="Verdana">Copyright
+                      (c) 2006&nbsp;AMML. All rights reserved.</font></p>          </td>
+        </tr>
+  </table>
+</div>
+<span class="style4">
+<font face="Verdana"><map name="ImageMap1">
+  <area shape="rect" coords="103, 6, 150, 22" href="index.html">
+  <area shape="rect" coords="185, 4, 239, 24" href="People.htm">
+  <area shape="rect" coords="273, 4, 351, 25" href="Research.htm">
+  <area shape="rect" coords="397, 5, 497, 26" href="Publications.htm">
+  <area shape="rect" coords="532, 5, 612, 24" href="Facilities.htm">
+  <area shape="rect" coords="642, 6, 703, 24" href="Alumni.htm">
+</map>
+</font></span><span class="style4">
+</span><span class="style3">
+</span><span class="style3">
+</span><span class="style3">
+</span><span class="style2">
+</span><span class="style2">
+</span>
+</body>
+
+</html>
