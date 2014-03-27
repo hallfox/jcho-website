@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usagedata>
+<month val="nov 2008" total="163">
+<item str="Windows XP" cnt="66" />
+<item str="http: /help.yahoo.com/help/us/ysearch/slurp" cnt="56" />
+<item str="Windows NT" cnt="11" />
+<item str="http: /www.google.com/bot.html" cnt="8" />
+<item str="http: /search.msn.com/msnbot.htm" cnt="4" />
+<item str="Macintosh" cnt="3" />
+<item str="http: /www.scoutjet.com/" cnt="2" />
+<item str="http: /www.exabot.com/go/robot" cnt="2" />
+<item str="Nutch" cnt="2" />
+<item str="http: /about.ask.com/en/docs/about/webmasters.shtml" cnt="2" />
+<item str="http: /www.alexa.com/site/help/webmasters" cnt="1" />
+<item str="Windows 2000" cnt="1" />
+<item str="http: /www.omni-explorer.com" cnt="1" />
+<item str="not on Windows server" cnt="1" />
+</month>
+<month val="dec 2008" total="258">
+<item str="http: /help.yahoo.com/help/us/ysearch/slurp" cnt="88" />
+<item str="Windows XP" cnt="84" />
+<item str="Windows NT" cnt="27" />
+<item str="http: /www.google.com/bot.html" cnt="17" />
+<item str="http: /www.exabot.com/go/robot" cnt="9" />
+<item str="http: /search.msn.com/msnbot.htm" cnt="9" />
+<item str="Macintosh" cnt="8" />
+<item str="http: /discoveryengine.com/discobot.html" cnt="2" />
+<item str="http: /www.dotnetdotcom.org/, crawler@dotnetdotcom.org" cnt="2" />
+<item str="http: /www.alexa.com/site/help/webmasters" cnt="1" />
+<item str="not on Windows server" cnt="1" />
+<item str="iPhone" cnt="1" />
+</month>
+<month val="jan 2009" total="89">
+<item str="Windows XP" cnt="35" />
+<item str="http: /help.yahoo.com/help/us/ysearch/slurp" cnt="33" />
+<item str="http: /www.google.com/bot.html" cnt="5" />
+<item str="Windows NT" cnt="5" />
+<item str="Macintosh" cnt="3" />
+<item str="Windows 2000" cnt="3" />
+<item str="http: /www.exabot.com/go/robot" cnt="2" />
+<item str="Windows Server 2003" cnt="1" />
+<item str="http: /search.msn.com/msnbot.htm" cnt="1" />
+<item str="http: /www.cazoodle.com/contact.php" cnt="1" />
+</month>
+</usagedata>

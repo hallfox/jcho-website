@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usagedata>
+<month val="nov 2008" total="163">
+<item str="Yahoo! Slurp" cnt="34" />
+<item str="Microsoft Internet Explorer 7.0" cnt="32" />
+<item str="Yahoo! Slurp 3.0" cnt="22" />
+<item str="Firefox 3.0" cnt="16" />
+<item str="Microsoft Internet Explorer 6.0" cnt="15" />
+<item str="VoilaBot BETA 1.2 " cnt="8" />
+<item str="Googlebot 2.1" cnt="8" />
+<item str="Firefox 2.0" cnt="7" />
+<item str="AppleWebKit 525.1" cnt="3" />
+<item str="ScoutJet" cnt="2" />
+<item str="Ask Jeeves Teoma" cnt="2" />
+<item str="Exabot 3.0" cnt="2" />
+<item str="rdfbot Nutch-1.0-dev" cnt="2" />
+<item str="ScholarUniverse 0.8" cnt="2" />
+<item str="msnbot-media 1.0" cnt="2" />
+<item str="msnbot 1.1" cnt="2" />
+<item str="OmniExplorer_Bot 6.1" cnt="1" />
+<item str="ia_archiver " cnt="1" />
+<item str="panscient.com" cnt="1" />
+<item str="Microsoft Internet Explorer or Firefox mutant" cnt="1" />
+</month>
+<month val="dec 2008" total="258">
+<item str="Yahoo! Slurp" cnt="59" />
+<item str="Microsoft Internet Explorer 7.0" cnt="47" />
+<item str="Yahoo! Slurp 3.0" cnt="29" />
+<item str="Microsoft Internet Explorer 6.0" cnt="18" />
+<item str="Googlebot 2.1" cnt="17" />
+<item str="Firefox 3.0" cnt="16" />
+<item str="VoilaBot BETA 1.2 " cnt="14" />
+<item str="Firefox 2.0" cnt="12" />
+<item str="Exabot 3.0" cnt="9" />
+<item str="Java 1.6" cnt="7" />
+<item str="AppleWebKit 525.1" cnt="6" />
+<item str="AppleWebKit 525.2" cnt="5" />
+<item str="msnbot 1.1" cnt="5" />
+<item str="discobot 1.0" cnt="2" />
+<item str="DotBot 1.1" cnt="2" />
+<item str="msnbot-media 1.0" cnt="2" />
+<item str="Word 12.1" cnt="2" />
+<item str="librabot 1.0" cnt="1" />
+<item str="ia_archiver " cnt="1" />
+<item str="msnbot-media 1.1" cnt="1" />
+<item str="Microsoft Internet Explorer or Firefox mutant" cnt="1" />
+<item str="panscient.com" cnt="1" />
+<item str="ISC Systems iRc Search 2.1" cnt="1" />
+</month>
+<month val="jan 2009" total="89">
+<item str="Yahoo! Slurp" cnt="20" />
+<item str="Microsoft Internet Explorer 6.0" cnt="18" />
+<item str="Yahoo! Slurp 3.0" cnt="13" />
+<item str="Microsoft Internet Explorer 7.0" cnt="10" />
+<item str="VoilaBot BETA 1.2 " cnt="5" />
+<item str="Googlebot 2.1" cnt="5" />
+<item str="Firefox 3.0" cnt="5" />
+<item str="AppleWebKit 525.1" cnt="3" />
+<item str="Firefox 2.0" cnt="3" />
+<item str="Exabot 3.0" cnt="2" />
+<item str="Microsoft Internet Explorer 5.0" cnt="1" />
+<item str="AppleWebKit 419.2" cnt="1" />
+<item str="AppleWebKit 525.2" cnt="1" />
+<item str="msnbot 1.1" cnt="1" />
+<item str="CazoodleBot 0.0" cnt="1" />
+</month>
+</usagedata>

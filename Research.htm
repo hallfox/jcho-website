@@ -1,0 +1,915 @@
+<html>
+
+<head>
+<title>AMML-Cho's Group</title>
+<meta name="generator" content="Namo WebEditor">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<style type="text/css">
+<!--
+
+.style2 {font-size: 9px}
+.style3 {font-size: 12px; }
+.style4 {font-size: 10px; }
+.style5 {font-size: 14px}
+.style6 {font-family: Verdana, Arial, Helvetica, sans-serif}
+-->
+</style>
+<script language="JavaScript">
+<!--
+
+
+
+
+
+
+
+
+function namosw_l_update(parent_visible, x, y) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var top = y, layer, list;
+  for(var i = 0; i < this.items.length; i++) { 
+    layer = this.items[i];
+    list  = layer.list;
+    if (this.visible && parent_visible) {
+      if (is_ns4) {
+	layer.visibility = "visible";
+	layer.top = top;
+	layer.left = x;
+      } else if (is_ns6) {
+	layer.style.visibility = "visible";
+	layer.style.top   = top;
+	layer.style.left  = x;	
+      } else {
+	layer.style.visibility = "visible";
+	layer.style.pixelTop   = top;
+	layer.style.pixelLeft  = x;	
+//	if (layer.url) layer.style.cursor = "hand";
+      }
+      top += this.height;
+    } else {
+      if (is_ns4)      layer.visibility = "hidden";
+      else if (is_ns6) layer.style.visibility = "hidden";
+      else             layer.style.visibility = "hidden";
+    }
+    if (layer.type == 'list') {
+      if (list.visible) {
+        if (!list.made)  list.write();
+        if (!list.shown) list.show();
+        if (is_ns4) layer.document.images[0].src = "collapsed.gif";
+	else eval('document.images._img'+list.id+'.src = "collapsed.gif"');
+      } else {
+	if (is_ns4) layer.document.images[0].src = "expanded.gif";
+	else eval('document.images._img'+list.id+'.src = "expanded.gif"');
+      }
+      if (list.made)
+        top = list.update(this.visible && parent_visible, x, top);
+    }
+  }
+  return top;
+}
+
+function namosw_l_updateparent(parent_id) {
+  this.parent_id = parent_id;
+  for(var i = 0; i < this.items.length; i++)
+    if (this.items[i].type == 'list')
+      this.items[i].list.updateparent(parent_id);
+}
+
+function namosw_l_expand(i) {
+  document.namosw_lists[i].visible = !document.namosw_lists[i].visible;
+  list = document.namosw_lists[document.namosw_lists[i].parent_id];
+  list.update(true, list.x, list.y);
+}
+
+function namosw_l_make(x, y) {
+  this.updateparent(this.id);
+  this.write();
+  this.show();
+  this.update(true, x, y);
+  this.x = x; 
+  this.y = y;
+}
+
+function namosw_l_additem(text, url, frame) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer = null;
+  if (is_ns4 && this.parent)
+    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);
+  else if (is_ns6)
+    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);
+  else
+    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);
+
+  if (layer == null && is_ns4) 
+    layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);
+
+  if (layer == null) return;
+
+  if (url)   layer.url   = url;
+  if (frame) {
+    if (frame.indexOf('parent.') != 0)
+      layer.frame = "_" + frame;
+    else
+      layer.frame = frame.substring(7, frame.length);
+  }
+  layer.type = 'item';
+  layer.text = text;
+  layer.lid  = document.namosw_lists.lid;
+  this.items[this.items.length] = layer;
+  layer.hbgColor = this.hbgColor;
+  layer.oBgColor = this.bgColor;
+  layer.fgColor = this.fgColor;
+  layer.hfgColor = this.hfgColor;
+  if (layer.captureEvents)
+    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);
+  layer.onmouseover = namosw_l_onmouseover;
+  layer.onmouseout  = namosw_l_onmouseout;
+//  layer.onmouseup   = namosw_l_onmouseup;
+  document.namosw_lists.lid++;
+}
+
+function namosw_l_addlist(list, text, url, frame) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer = null;
+
+  if (is_ns4 && this.parent)
+    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);
+  else if (is_ns6)
+    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);
+  else
+    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);
+  if (layer == null && is_ns4) 
+      layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);
+
+  if (layer == null) return;
+
+  if (url)   layer.url   = url;
+  if (frame) {
+    if (frame.indexOf('parent.') != 0)
+      layer.frame = "_" + frame;
+    else
+      layer.frame = frame.substring(7, frame.length);
+  }
+  layer.list = list;
+  layer.type = 'list';
+  layer.text = text;
+  layer.lid  = document.namosw_lists.lid;
+  this.items[this.items.length] = layer;
+  list.parent = this;
+  layer.hbgColor = this.hbgColor;
+  layer.oBgColor = this.bgColor;
+  layer.fgColor = this.fgColor;
+  layer.hfgColor = this.hfgColor;
+  if (layer.captureEvents)
+    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);
+  layer.onmouseover = namosw_l_onmouseover;
+  layer.onmouseout  = namosw_l_onmouseout;
+//  layer.onmouseup   = namosw_l_onmouseup;
+  document.namosw_lists.lid++;
+}
+
+function namosw_l_onmouseover()
+{
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  if (is_ns4) {
+    if (this.hbgColor)
+      this.bgColor = this.hbgColor;
+  } else {
+    if (this.hbgColor) this.style.backgroundColor = this.hbgColor;
+    if (this.hfgColor) this.span.style.color = this.hfgColor;
+  }
+  if (this.url) self.status = this.url;
+}
+
+function namosw_l_onmouseout()
+{
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  if (is_ns4) {
+    this.bgColor = this.oBgColor;
+  } else  {
+    this.style.backgroundColor = this.oBgColor;
+    this.span.style.color = this.fgColor;
+  }
+  if (this.url) self.status = '';
+}
+
+function namosw_l_onmouseup()
+{
+  if (this.url) {
+    if (this.frame == 'blank') {
+      window.open(this.url, 'win1');
+    } else {
+      var frame_obj;
+      if ((frame_obj = eval(this.frame)) != null)
+        frame_obj.location = this.url;
+    }
+  }
+}
+
+function namosw_init_list(top_layer)
+{
+  if (parseInt(navigator.appVersion) < 4)
+    return;
+  if (top_layer == '')
+    return;
+
+  document.namosw_lists     = new Array();
+  document.namosw_lists.lid = 0;
+
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer;
+  if (is_ns4)      layer = document.layers[top_layer];  
+  else if (is_ns6) layer = document.getElementById(top_layer);
+  else             layer = document.all[top_layer];
+
+
+  var string = "";
+  for (i = 0; i < 7; i++) {
+    string = string + "<div id='namoswlistitem" + (document.namosw_lists.lid+i) + "' " +
+                      "style='position: absolute;'></div>";
+  }
+  layer.innerHTML += string;
+
+  l1 = new namosw_list(layer, true, 145, 22, '(기본 글꼴)', '', 'white', '', 65);
+    l2 = new namosw_list(layer, false, 145, 53, 'Verdana', '1', 'white', '#009933', 5, '#006600');
+    l2.additem('Dept. of Mechanical Engineering', 'http://www.me.binghamton.edu', 'top');
+    l2.additem('Program of Materials Science and Engineering', 'http://materials.binghamton.edu/materials/', 'top');
+    l2.additem('Integrated Electronics Engineering Center (IEEC)', 'http://www.ieec.binghamton.edu/ieec/', 'top');
+    l2.additem('Research at Binghamton University', 'http://research.binghamton.edu/', 'top');
+    l2.additem('BU Libraries', 'http://library.lib.binghamton.edu/', 'top');
+  l1.addlist(l2, ' ', '', 'self');
+
+  l1.make(0, 14);
+}
+
+function namosw_ns_resize()
+{
+  window.history.go(0);
+}
+
+// -->
+</script>
+<script language="JavaScript">
+<!--
+function namosw_list(parent, visible, width, height, font, size, fgColor, bgColor, indent, hbgColor, hfgColor) {
+  this.additem = namosw_l_additem;
+  this.addlist = namosw_l_addlist;
+  this.make    = namosw_l_make;
+  this.write   = namosw_l_write;
+  this.show    = namosw_l_show;
+  this.update  = namosw_l_update;
+  this.updateparent = namosw_l_updateparent;
+  this.items = new Array();
+  this.id = document.namosw_lists.length;
+  this.parent_id = 0;
+  this.x = 0;
+  this.y = 0;
+  this.visible = visible;
+  this.width    = width;
+  this.height   = height;
+  this.parent   = parent;
+  this.indent = indent;
+  this.fgColor = fgColor;
+  this.hfgColor = hfgColor;
+  this.bgColor  = bgColor;
+  this.hbgColor = hbgColor;
+
+  this.font_start = '';
+  this.font_end   = '';
+
+  this.font_start = '<font color=' + fgColor;
+  if (font != '') this.font_start += ' face=\"' + font + '\"';
+  if (size != '' && size.indexOf('pt', 0) == -1) this.font_start += ' size=' + size;
+  this.font_start += '>';
+
+  this.font_start += '<span';
+  if (size.indexOf('pt', 0) != -1)
+    this.font_start += ' style="font-size:' +size+ ';"';
+  this.font_start += '>';
+
+  this.font_end  = '</span>';
+  this.font_end += '</font>';
+
+  this.made     = false;
+  this.shown    = false;
+  document.namosw_lists[document.namosw_lists.length] = this;
+}
+
+function namosw_l_setclip(layer, left, right, top, bottom) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  if (is_ns4) {
+    layer.clip.left   = left; 
+    layer.clip.right  = right;
+    layer.clip.top    = top;  
+    layer.clip.bottom = bottom;
+  } else if (is_ns6) {
+    layer.style.width  = right-left;
+    layer.style.height = bottom-top;
+    layer.style.clip  = "rect(" + top + "," + right + "," + bottom + "," + left + ")";
+  } else {    
+    layer.style.pixelWidth  = right-left;
+    layer.style.pixelHeight = bottom-top;
+    layer.style.clip  = "rect(" + top + "," + right + "," + bottom + "," + left + ")";
+  }
+}
+
+function namosw_l_write() {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer, clip, str;
+  for(var i = 0; i < this.items.length; i++) { 
+    layer = this.items[i];
+    if (is_ns4) 
+      layer.visibility = "hidden";
+    else 
+      layer.style.visibility = "hidden";
+    str = "";
+
+    str += "<table width="+this.width+" nowrap border='0' cellpadding='0' cellspacing='0'><tr>";
+    if (0 < this.indent) str += "<td width="+this.indent+" nowrap>&nbsp;</td>";
+    if (layer.type == 'list') {
+      str += "<td width=15  valign='middle' nowrap><a";
+      if (is_ns4) str += " href=\"javascript:void(0);\"";
+      else        str += " style=\"cursor:hand;\"";
+      str += " onclick=\"namosw_l_expand("+layer.list.id+");\"><img src=\"collapsed.gif\" name=\"_img"+layer.list.id+"\" border='0'></a></td>";
+    } else {
+      str += "<td width=15 nowrap>&nbsp;</td>";
+    }
+    str += "<td height="+(this.height-3)+" width="+(this.width-15-this.indent)+" valign='middle' align='left'>";
+
+    if (layer.url)       str += "<a href=\"" + layer.url + "\" target=\"" + layer.frame + "\" style=\"text-decoration:none;\">";
+    if (this.font_start) str += this.font_start;
+    str += layer.text;
+    if (this.font_end) str += this.font_end;
+    if (layer.url)       str += "</a>";
+    str += "</td></table>";
+
+    str = str.replace("span", "span id='namoswlistspan" + layer.lid + "'");
+
+    if (is_ns4) {
+      layer.document.writeln(str);
+      layer.document.close();
+    } else if (is_ns6) {
+      layer.innerHTML = str;
+      layer.span = document.getElementById('namoswlistspan'+layer.lid);
+    } else {
+      layer.innerHTML = str;
+      layer.span = document.all['namoswlistspan'+layer.lid];
+    }
+    if (layer.type == 'list' && layer.list.visible)
+      this.items[i].list.write();
+  }
+  this.made = true;
+}
+
+function namosw_l_show() {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer;
+  for(var i = 0; i < this.items.length; i++) { 
+    layer = this.items[i];
+    namosw_l_setclip(layer, 0, this.width, 0, this.height-1);
+    if (is_ns4) {
+      if (layer.oBgColor) layer.document.bgColor = layer.oBgColor;
+      else layer.document.bgColor = this.bgColor;
+    } else {
+      if (layer.oBgColor) layer.style.backgroundColor = layer.oBgColor;
+      else layer.style.backgroundColor = this.bgColor;
+    }
+    if (layer.type == 'list' && layer.list.visible)
+      layer.list.show();
+  }
+  this.shown = true;
+}
+
+function namosw_l_update(parent_visible, x, y) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var top = y, layer, list;
+  for(var i = 0; i < this.items.length; i++) { 
+    layer = this.items[i];
+    list  = layer.list;
+    if (this.visible && parent_visible) {
+      if (is_ns4) {
+	layer.visibility = "visible";
+	layer.top = top;
+	layer.left = x;
+      } else if (is_ns6) {
+	layer.style.visibility = "visible";
+	layer.style.top   = top;
+	layer.style.left  = x;	
+      } else {
+	layer.style.visibility = "visible";
+	layer.style.pixelTop   = top;
+	layer.style.pixelLeft  = x;	
+//	if (layer.url) layer.style.cursor = "hand";
+      }
+      top += this.height;
+    } else {
+      if (is_ns4)      layer.visibility = "hidden";
+      else if (is_ns6) layer.style.visibility = "hidden";
+      else             layer.style.visibility = "hidden";
+    }
+    if (layer.type == 'list') {
+      if (list.visible) {
+        if (!list.made)  list.write();
+        if (!list.shown) list.show();
+        if (is_ns4) layer.document.images[0].src = "collapsed.gif";
+	else eval('document.images._img'+list.id+'.src = "collapsed.gif"');
+      } else {
+	if (is_ns4) layer.document.images[0].src = "expanded.gif";
+	else eval('document.images._img'+list.id+'.src = "expanded.gif"');
+      }
+      if (list.made)
+        top = list.update(this.visible && parent_visible, x, top);
+    }
+  }
+  return top;
+}
+
+function namosw_l_updateparent(parent_id) {
+  this.parent_id = parent_id;
+  for(var i = 0; i < this.items.length; i++)
+    if (this.items[i].type == 'list')
+      this.items[i].list.updateparent(parent_id);
+}
+
+function namosw_l_expand(i) {
+  document.namosw_lists[i].visible = !document.namosw_lists[i].visible;
+  list = document.namosw_lists[document.namosw_lists[i].parent_id];
+  list.update(true, list.x, list.y);
+}
+
+function namosw_l_make(x, y) {
+  this.updateparent(this.id);
+  this.write();
+  this.show();
+  this.update(true, x, y);
+  this.x = x; 
+  this.y = y;
+}
+
+function namosw_l_additem(text, url, frame) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer = null;
+  if (is_ns4 && this.parent)
+    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);
+  else if (is_ns6)
+    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);
+  else
+    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);
+
+  if (layer == null && is_ns4) 
+    layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);
+
+  if (layer == null) return;
+
+  if (url)   layer.url   = url;
+  if (frame) {
+    if (frame.indexOf('parent.') != 0)
+      layer.frame = "_" + frame;
+    else
+      layer.frame = frame.substring(7, frame.length);
+  }
+  layer.type = 'item';
+  layer.text = text;
+  layer.lid  = document.namosw_lists.lid;
+  this.items[this.items.length] = layer;
+  layer.hbgColor = this.hbgColor;
+  layer.oBgColor = this.bgColor;
+  layer.fgColor = this.fgColor;
+  layer.hfgColor = this.hfgColor;
+  if (layer.captureEvents)
+    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);
+  layer.onmouseover = namosw_l_onmouseover;
+  layer.onmouseout  = namosw_l_onmouseout;
+//  layer.onmouseup   = namosw_l_onmouseup;
+  document.namosw_lists.lid++;
+}
+
+function namosw_l_addlist(list, text, url, frame) {
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer = null;
+
+  if (is_ns4 && this.parent)
+    layer = eval('this.parent.document.layers.namoswlistitem'+document.namosw_lists.lid);
+  else if (is_ns6)
+    layer = document.getElementById("namoswlistitem" + document.namosw_lists.lid);
+  else
+    layer = eval('document.all.namoswlistitem'+document.namosw_lists.lid);
+  if (layer == null && is_ns4) 
+      layer = this.parent ? new Layer(this.width, this.parent) : new Layer(this.width);
+
+  if (layer == null) return;
+
+  if (url)   layer.url   = url;
+  if (frame) {
+    if (frame.indexOf('parent.') != 0)
+      layer.frame = "_" + frame;
+    else
+      layer.frame = frame.substring(7, frame.length);
+  }
+  layer.list = list;
+  layer.type = 'list';
+  layer.text = text;
+  layer.lid  = document.namosw_lists.lid;
+  this.items[this.items.length] = layer;
+  list.parent = this;
+  layer.hbgColor = this.hbgColor;
+  layer.oBgColor = this.bgColor;
+  layer.fgColor = this.fgColor;
+  layer.hfgColor = this.hfgColor;
+  if (layer.captureEvents)
+    layer.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.MOUSEUP);
+  layer.onmouseover = namosw_l_onmouseover;
+  layer.onmouseout  = namosw_l_onmouseout;
+//  layer.onmouseup   = namosw_l_onmouseup;
+  document.namosw_lists.lid++;
+}
+
+function namosw_l_onmouseover()
+{
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  if (is_ns4) {
+    if (this.hbgColor)
+      this.bgColor = this.hbgColor;
+  } else {
+    if (this.hbgColor) this.style.backgroundColor = this.hbgColor;
+    if (this.hfgColor) this.span.style.color = this.hfgColor;
+  }
+  if (this.url) self.status = this.url;
+}
+
+function namosw_l_onmouseout()
+{
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  if (is_ns4) {
+    this.bgColor = this.oBgColor;
+  } else  {
+    this.style.backgroundColor = this.oBgColor;
+    this.span.style.color = this.fgColor;
+  }
+  if (this.url) self.status = '';
+}
+
+function namosw_l_onmouseup()
+{
+  if (this.url) {
+    if (this.frame == 'blank') {
+      window.open(this.url, 'win1');
+    } else {
+      var frame_obj;
+      if ((frame_obj = eval(this.frame)) != null)
+        frame_obj.location = this.url;
+    }
+  }
+}
+
+function namosw_init_list(top_layer)
+{
+  if (parseInt(navigator.appVersion) < 4)
+    return;
+  if (top_layer == '')
+    return;
+
+  document.namosw_lists     = new Array();
+  document.namosw_lists.lid = 0;
+
+  var is_ns4 = navigator.appName.indexOf('Netscape', 0) != -1 && !document.getElementById;
+  var is_ns6 = navigator.appName.indexOf('Netscape', 0) != -1 && document.getElementById;
+
+  var layer;
+  if (is_ns4)      layer = document.layers[top_layer];  
+  else if (is_ns6) layer = document.getElementById(top_layer);
+  else             layer = document.all[top_layer];
+
+
+  var string = "";
+  for (i = 0; i < 7; i++) {
+    string = string + "<div id='namoswlistitem" + (document.namosw_lists.lid+i) + "' " +
+                      "style='position: absolute;'></div>";
+  }
+  layer.innerHTML += string;
+
+  l1 = new namosw_list(layer, true, 145, 22, 'Arial', '1', 'white', '', 60);
+    l2 = new namosw_list(layer, false, 145, 50, 'Verdana', '1', 'white', '#4AA24B', 0, '#77B979');
+    l2.additem('Dept. of Mechanical Engineering', 'http://me.binghamton.edu', 'top');
+    l2.additem('Program of Materials Science and Engineering', 'http://materials.binghamton.edu/materials/', 'top');
+    l2.additem('Integrated Electronics Engineering Center (IEEC)', 'http://www.ieec.binghamton.edu/ieec/', 'top');
+    l2.additem('Research at Binghamton University', 'http://research.binghamton.edu/', 'top');
+    l2.additem('BU Libraries', 'http://library.lib.binghamton.edu/', 'top');
+  l1.addlist(l2, ' ', '', 'self');
+
+  l1.make(0, 14);
+}
+
+function namosw_ns_resize()
+{
+  window.history.go(0);
+}
+
+// -->
+</script>
+<script language="JavaScript">
+<!--
+function na_restore_img_src(name, nsdoc)
+{
+  var img = eval((navigator.appName.indexOf('Netscape', 0) != -1) ? nsdoc+'.'+name : 'document.all.'+name);
+  if (name == '')
+    return;
+  if (img && img.altsrc) {
+    img.src    = img.altsrc;
+    img.altsrc = null;
+  } 
+}
+
+function na_preload_img()
+{ 
+  var img_list = na_preload_img.arguments;
+  if (document.preloadlist == null) 
+    document.preloadlist = new Array();
+  var top = document.preloadlist.length;
+  for (var i=0; i < img_list.length-1; i++) {
+    document.preloadlist[top+i] = new Image;
+    document.preloadlist[top+i].src = img_list[i+1];
+  } 
+}
+
+function na_change_img_src(name, nsdoc, rpath, preload)
+{ 
+  var img = eval((navigator.appName.indexOf('Netscape', 0) != -1) ? nsdoc+'.'+name : 'document.all.'+name);
+  if (name == '')
+    return;
+  if (img) {
+    img.altsrc = img.src;
+    img.src    = rpath;
+  } 
+}
+
+// -->
+</script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red" OnLoad=" namosw_init_list('layer1');na_preload_img(false, 'Files/Pics/Buttons/News_2.jpg', 'Files/Pics/Buttons/Photo%20album%202.jpg', 'Files/Pics/Buttons/form%202.jpg', 'Files/Pics/Buttons/position%202.jpg', 'Files/Pics/Banner/Disclaimer%202.jpg');" OnResize="namosw_ns_resize();">
+<div align="left">
+    <table width="798" cellpadding="0" cellspacing="0" height="95">
+        <tr>
+            <td width="798" height="95">
+                <p align="left"><font face="Verdana"><img src="Files/Pics/Banner/index_011.jpg" width="800" height="92" border="0"></font></p>            </td>
+        </tr>
+    </table>
+</div>
+<div align="left">
+    <table width="790" cellpadding="0" cellspacing="0" height="118" style="border-collapse:collapse;">
+        <tr>
+            <td width="156" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><font face="Verdana"><a href="People.htm"><img src="Files/Pics/People/IMG_4636.jpg" width="150" height="96" border="0"></a></font></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><a href="../내 웹 사이트/Research.htm"></a><font face="Verdana"><a href="Research.htm"><img src="Files/Pics/Research/3 micron copy.jpg" width="150" height="96" border="0"></a></font></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><font face="Verdana"><a href="Facilities.htm"><img src="Files/Pics/Research/Picture5 (WinCE).jpg" width="150" height="96" border="0"></a></font></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><a href="Research.htm"><img src="Files/Pics/Research/indent.jpg" width="149" height="101" border="0"></a></p>
+            </td>
+            <td width="158" height="90" style="border-width:2; border-color:white; border-style:solid;">
+<p align="center"><a href="Photo album.htm"><img src="Files/Pics/Photo album/1.jpg" width="145" height="100" border="0"></a></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="796" height="12" colspan="5" style="border-width:2; border-color:white; border-style:solid;">
+                <p align="center"><font face="Verdana"><img src="Files/Pics/Banner/Banner6.jpg" width="800" height="30" border="0" usemap="#ImageMap1"></font></p>            </td>
+        </tr>
+    </table>
+</div>
+<div align="left">
+    <table width="800" cellpadding="0" cellspacing="0" height="622" style="border-collapse:collapse;">
+        <tr>
+            <td width="146" height="622" bordercolor="white" style="border-width:2; border-color:white; border-style:solid;" background="Files/Pics/Banner/Banner18.jpg">
+<p style="line-height:100%; margin:0;" align="left"><font size="3" face="Verdana"><b><a href="News.htm" OnMouseOut="na_restore_img_src('News', 'document')" OnMouseOver="na_change_img_src('News', 'document', 'Files/Pics/Buttons/News_2.jpg', true);"><img border="0" src="Files/Pics/Buttons/News_1.jpg" width="145" height="50" name="News"></a></b></font></p>
+                <p style="line-height:100%; margin:0;"><a href="Photo album.htm" onMouseOut="na_restore_img_src('photo', 'document')" onMouseOver="na_change_img_src('photo', 'document', 'Files/Pics/Buttons/Photo album 2.jpg', true)"><img border="0" src="Files/Pics/Buttons/Photo%20album%201.jpg" width="145" height="50" name="photo"></a><font size="3" face="Verdana"></font><b></b></p>
+                <p style="line-height:100%; margin:0;"><a href="Forms.htm" OnMouseOut="na_restore_img_src('form', 'document')" OnMouseOver="na_change_img_src('form', 'document', 'Files/Pics/Buttons/form 2.jpg', true)"><img border="0" src="Files/Pics/Buttons/form%201.jpg" width="145" height="50" name="form"></a></p>
+                <p style="line-height:100%; margin:0;"><a href="Position.htm" OnMouseOut="na_restore_img_src('Position', 'document')" OnMouseOver="na_change_img_src('Position', 'document', 'Files/Pics/Buttons/position 2.jpg', true)"><img border="0" src="Files/Pics/Buttons/position%201.jpg" width="145" height="50" name="Position"></a><font size="3" face="Verdana"></font></p>
+                <div id="layer1" style="width:145px; height:200px; position:absolute; left:12px; top:453px; z-index:1;">
+                    <p>&nbsp;</p>
+                </div>
+                <p style="line-height:100%; margin:0;"><img border="0" src="Files/Pics/Buttons/Links%201.jpg" width="145" height="50" name="Links"></p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;">&nbsp;</p>
+                <p style="line-height:100%; margin:0;" align="center"><a href="index.html"><img src="Files/Pics/Sponsors/Group logo.jpg" width="130" height="48" border="0"></a></p>
+                <p style="line-height:100%; margin:0;" align="center">&nbsp;</p>
+                <p style="line-height:100%; margin:0;" align="center">&nbsp;</p>
+                <p align="center" style="line-height:100%; margin:0;"><a href="http://www.binghamton.edu"><img src="Files/Pics/Sponsors/BUlogo2c copy.jpg" width="120" height="52" border="0"></a></p>
+                <p align="center">&nbsp;</p>
+            </td>
+            <td width="648" height="805" style="border-width:2; border-color:white; border-style:solid;">
+                <p class="style3" style="margin-left:5;"><span class="style3"><span class="style5"><font face="Verdana">Click
+                    here for 
+                    the </font>scope of our research activities (<a href="Files/Papers/research-activity-1.pdf">part 1</a> and <a href="Files/Papers/research-activity-2.pdf">part 2</a>) <font face="Verdana">in
+                materials and mechanics disciplines.</font><font face="Verdana"></font></span></span></p>
+                <p class="style5" style="margin-left:10;"><font face="Verdana">Below are  our current research supports:</font></p>
+                <p class="style3" style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+                <table width="646" height="682" cellspacing="0" style="border-collapse:collapse;">
+                	<tr>
+                		<td width="440" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#FFFF99">
+                            <p align="center" class="style5"><a href="Files/Papers/Research/Research2013.docx" class="style6">Advanced Materials and Mechanics Laboratory Research</a></p>
+                            <p align="center"><font size="2" face="Verdana,Arial" color="red"></font></p>
+                      </td>
+                      <td></td>
+                	</tr>
+                    <tr>
+                        <td width="440" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#E7FFD4">
+                            <p align="center" class="style5"><a href="Files/Papers/Research/SRC_project.html" class="style6">A
+                                Novel Coating Concept for Electronic and MEMS
+                            Packaging</a></p>
+                            <p align="center"><font size="2" face="Verdana,Arial" color="red">(co-funded
+by Semiconductor Research Corporation &amp; Microelectronics Design Center)</font></p>
+                      </td>
+                        <td width="199" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#E7FFD4">
+                            <p align="center"><a href="Enlarging pics/ZrO_Par_PDMS.jpg"><img src="Files/Pics/Research/Research project/ZrO_Par_PDMS.jpg" width="175" height="134" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="440" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#FFFF99">
+                            <p align="center" class="style5"><a href="Files/Papers/Research/NYSTAR_project.html" class="style6">Ceramic
+                                Thin Film Embedded Capacitors for Emerging System-in-Packaging
+                            (SIP) Concepts</a></p>
+                            <p align="center"><font size="2" face="Verdana,Arial" color="red">(funded
+by New York State Office of Science, Technology and Academic Research)</font></p>
+                      </td>
+                        <td width="199" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#FFFF99">
+                            <p align="center"><a href="Enlarging pics/Flow.htm"><img src="Files/Pics/Research/Research project/EIT_evolchart copy.jpg" width="173" height="141" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="440" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#E7FFD4">
+                            <p align="center" class="style5"><a href="Files/Papers/Research/GE_project.html" class="style6">Electronic
+                            Packaging Materials for Deep Drilling Technologies</a></p>
+                            <p align="center"><font size="2" face="Verdana,Arial" color="red">(funded
+by General Electric / Department of Energy)</font></p>
+                      </td>
+                        <td width="199" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#E7FFD4">
+                            <p align="center"><a href="Enlarging pics/Drilling.htm"><img src="Files/Pics/Research/Research project/GE_Project.jpg" width="176" height="141" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="440" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#FFFF99">
+                            <p align="center"><span class="style5"><font face="Verdana,Arial" color="black"><a href="Files/Papers/Research/ONR_project.html">Design,
+Packaging and Reliability of MEMS S&amp;A Components - Materials Characterization</a> </font></span></p>
+                            <p align="center"><font size="2" face="Verdana,Arial" color="red">(funded
+by Office of Naval Research) </font></p>
+                        </td>
+                        <td width="199" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#FFFF99">
+                            <p align="center"><a href="Enlarging pics/Thermo.htm"><img src="Files/Pics/Research/Research project/oxidation_map.jpg" width="175" height="141" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="440" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#E7FFD4">
+                            <p align="center"><span class="style5"><font face="Verdana,Arial" color="black"><a href="Files/Papers/Research/IEEC_project.html">Utilization
+of Dynamic Nanoindentation for Soft Materials</a></font> </span></p>
+                            <p align="center"><font size="2" face="Verdana,Arial" color="red">(funded
+by Integrated Electronics Engineering Center) </font></p>
+                        </td>
+                        <td width="199" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#E7FFD4">
+                            <p align="center"><a href="Enlarging pics/Mech model.htm"><img src="Files/Pics/Research/Research project/spring&dash.jpg" width="179" height="141" border="0"></a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="440" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#FFFF99">
+                            <p align="center"><span class="style5"><font face="Verdana,Arial" color="black"><a href="Files/Papers/Research/CAMM_project.html">Oxygen
+and Moisture Barrier Coatings for Organic Electronics</a></font> </span></p>
+                            <p align="center"><font size="2" face="Verdana,Arial" color="red">(funded
+by Center for Advanced Microelectronics Manufacturing / US Army) </font></p>
+                        </td>
+                        <td width="199" height="141" style="border-width:1; border-color:black; border-style:double;" bgcolor="#FFFF99">
+                            <p align="center"><a href="Enlarging pics/Coating concept.htm"><img src="Files/Pics/Research/Research project/barrier_coat.jpg" width="179" height="141" border="0"></a></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+                        
+</table>
+</div>
+<div align="left" class="style4">
+    <table width="800" cellpadding="0" cellspacing="0" height="152">
+        <tr>
+            <td height="31" colspan="10" background="Files/Pics/Banner/Banner4.jpg" width="800">
+                <p align="left"><b><font face="Verdana">&nbsp;&nbsp;</font><font face="Verdana" color="#3E9E3D">Sponsors</font></b><font face="Verdana"></font></p>          </td>
+        </tr>
+        <tr>
+            <td width="80" height="35">
+                <p align="center"><font face="Verdana"><a href="http://www.ieec.binghamton.edu/ieec/"><img src="Files/Pics/Sponsors/IEEClogo.jpg" width="80" height="25" border="0"></a></font><font face="Verdana"></font></p>            </td>
+            <td width="80" height="35">
+                <p align="center"><font face="Verdana"><a href="http://www.ceis.rochester.edu/"><img src="Files/Pics/Sponsors/ceis-cateis.jpg" width="80" height="70" border="0"></a></font><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><font face="Verdana"><a href="http://www.infotonics.org/"><img src="Files/Pics/Sponsors/infotonics.jpg" width="80" height="25" border="0"></a></font><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.src.org"><img src="Files/Pics/Sponsors/SRC.jpg" width="65" height="65" border="0"></a><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.analog.com/"><img src="Files/Pics/Sponsors/logo.jpg" width="80" height="25" border="0"></a><font face="Verdana"></font></p>          </td>
+<td width="80" height="35">
+<p align="center"><a href="http://www.ge.com/research"><img src="Files/Pics/Sponsors/monogram.gif" width="59" height="57" border="0"></a><font face="Verdana"></font></p>
+            </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.nystar.state.ny.us/"><img src="Files/Pics/Sponsors/nystarnews.jpg" width="80" height="22" border="0"></a><font face="Verdana"></font></p>          </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.nsf.gov/"><img src="Files/Pics/Sponsors/nsf4c.jpg" width="80" height="80" border="0"></a><font face="Verdana"></font></p>          </td>
+<td width="80" height="35">
+<p align="center"><a href="http://www.onr.navy.mil/"><img src="Files/Pics/Sponsors/ONR.jpg" width="80" height="36" border="0"></a><font face="Verdana"></font></p>
+            </td>
+            <td width="80" height="35">
+                <p align="center"><a href="http://www.energy.gov/"><img src="Files/Pics/Sponsors/DOE.jpg" width="70" height="70" border="0"></a><font face="Verdana"></font></p>          </td>
+</tr>
+        <tr>
+            <td height="31" colspan="10" width="800">
+<a href="#" OnMouseOut="na_restore_img_src('Disclaimer', 'document')" OnMouseOver="na_change_img_src('Disclaimer', 'document', 'Files/Pics/Banner/Disclaimer 2.jpg', true)"><img border="0" src="Files/Pics/Banner/Disclaimer%201.jpg" width="800" height="30" name="Disclaimer"></a></td>
+        </tr>
+        <tr>
+            <td height="55" colspan="10" width="800">
+                <p align="center"><font size="2" face="Verdana">Copyright
+                      (c) 2006&nbsp;AMML. All rights reserved.</font></p>          </td>
+        </tr>
+  </table>
+</div>
+<span class="style4">
+<font face="Verdana"><map name="ImageMap1">
+  <area shape="rect" coords="103, 6, 150, 22" href="index.html">
+  <area shape="rect" coords="185, 4, 239, 24" href="People.htm">
+  <area shape="rect" coords="273, 4, 351, 25" href="Research.htm">
+  <area shape="rect" coords="397, 5, 497, 26" href="Publications.htm">
+  <area shape="rect" coords="532, 5, 612, 24" href="Facilities.htm">
+  <area shape="rect" coords="642, 6, 703, 24" href="Alumni.htm">
+</map>
+</font></span><span class="style4">
+</span><span class="style3">
+</span><span class="style3">
+</span><span class="style3">
+</span><span class="style2">
+</span><span class="style2">
+</span>
+</body>
+
+</html>
